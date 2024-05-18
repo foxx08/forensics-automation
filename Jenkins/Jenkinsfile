@@ -1,14 +1,20 @@
 pipeline {
     agent any
 
+    environment {
+        OUTPUT_DIR = "${WORKSPACE}/forensicAnalysis" // Directory within the workspace for gathered evidence
+    }
+
     stages {
         stage('Create Python Virtual Environment') {
             steps {
-                    sh 'pip install pipenv'
-                    sh 'pipenv install'
+                sh '''
+                pip install pipenv
+                pipenv install
+                '''
             }
         }
-        stage('Perform initial Hash Comparision') {
+        stage('Perform Initial Hash Comparison') {
             steps {
                 sh 'pipenv run pytest ./scripts/test_integrity_checker.py -s --test-object "${imagePath}" --initial-hash "${initialHash}"'
             }
@@ -17,6 +23,22 @@ pipeline {
             steps {
                 sh 'pipenv run python scripts/image_analyzer.py --image-path "${imagePath}"'
             }
+        }
+        stage('Perform Data Recovery') {
+            steps {
+                sh '''
+                echo "Running foremost on the image..."
+                mkdir -p $OUTPUT_DIR/restoredData/deletedData
+                foremost -i "${imagePath}" -o $OUTPUT_DIR/restoredData/deletedData
+                echo "Foremost recovery completed."
+                '''
+            }
+        }
+    }
+
+    post {
+        always {
+            archiveArtifacts artifacts: 'forensicAnalysis/**', allowEmptyArchive: true
         }
     }
 }
