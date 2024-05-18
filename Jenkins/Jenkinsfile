@@ -10,7 +10,7 @@ pipeline {
         }
         stage('Perform initial Hash Comparision') {
             steps {
-                sh 'pipenv run pytest ./scripts/test_integrity_checker.py -s --test-object "$imagePath" --initial-hash "initialHash"'
+                sh 'pipenv run pytest ./scripts/test_integrity_checker.py -s --test-object "${imagePath}" --initial-hash "{initialHash}"'
             }
         }
     }
