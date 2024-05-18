@@ -1,0 +1,2 @@
+jenkins:
+  systemMessage: "Jenkins configured automatically to perform forensic analysis\n\n"
