@@ -1,2 +1,24 @@
 jenkins:
   systemMessage: "Jenkins configured automatically to perform forensic analysis\n\n"
+
+jobs:
+  - script: >
+      pipelineJob('forensics-automation') {
+        parameters {
+        stringParam('imagePath', '/Users/mario/Documents/Github/cfv/testObject/forensicstick.dd', 'The directory where the image is stored.')
+        stringParam('initialHash', '2e8a6d70fe99fbf44f7b38e7355fd29a', 'The initial hash value of the image.')
+        }
+        definition {
+          cpsScm {
+            scm {
+              git {
+                remote {
+                  url 'https://github.com/foxx08/forensics-automation'
+                }
+                branches('*/main')
+              }
+            }
+            scriptPath('Jenkins/Jenkinsfile')
+          }
+        }
+      }
