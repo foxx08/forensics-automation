@@ -27,10 +27,10 @@ pipeline {
         stage('Perform Data Recovery') {
             steps {
                 sh '''
-                echo "Running foremost on the image..."
+                echo "Trying to Restore deleted Data"
                 mkdir -p $OUTPUT_DIR/restoredData/deletedData
                 foremost -i "${imagePath}" -o $OUTPUT_DIR/restoredData/deletedData
-                echo "Foremost recovery completed."
+                echo "Attempt to restore deleted Data completed."
                 '''
             }
         }
