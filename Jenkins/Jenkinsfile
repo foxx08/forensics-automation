@@ -50,6 +50,7 @@ pipeline {
                     startValuesMap.each { key, value ->
                         sh "mkdir -p $OUTPUT_DIR/restoredData/activeData/partition${key}"
                         //sh 'pipenv run python scripts/restore_data.py --image-path "${imagePath}" --partitions-start ${value} --output-directory $OUTPUT_DIR/restoredData/activeData/partition${key}"'
+                    }
                 }
             }
         }
