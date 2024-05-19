@@ -92,7 +92,7 @@ def save_partition_info_to_csv(partition_info, output_csv):
 
 def save_file_metadata_to_csv(partition, file_metadata, output_csv):
     file_exists = os.path.isfile(output_csv)
-    with open(output_csv + 'fileMetadata-Partition' + str(partition) + '.csv', 'w+', newline='') as csv_file:
+    with open(output_csv + 'directoriesAndFiles-Partition' + str(partition) + '.csv', 'w+', newline='') as csv_file:
         writer = csv.writer(csv_file)
         if not file_exists:
             writer.writerow(['Path', 'Inode', 'Name', 'Size', 'Creation Time'])
