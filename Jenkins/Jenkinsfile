@@ -27,16 +27,45 @@ pipeline {
                 '''
             }
         }
-        /*stage('Perform Data Recovery') {
+        stage('Verify Image Integrity') {
             steps {
-                sh '''
-                echo "Trying to Restore deleted Data"
+                sh 'pipenv run pytest ./scripts/test_integrity_checker.py -s --test-object "${imagePath}" --initial-hash "${initialHash}"'
+            }
+        }
+        stage('Prepare Data Recovery') {
+            steps {
+                script {
+                    def csvFile = readFile("${OUTPUT_DIR}/fileSystemAnalysis/partitionInfo.csv")
+                    def rows = csvFile.readLines()
+                    def dataRows = rows[1..-1]
+                    def startValuesMap = [:]
+
+                    dataRows.eachWithIndex { row, index ->
+                        def columns = row.split(',')
+                        def startValue = columns[2]
+                        startValuesMap[index.toString()] = startValue
+                    }
+
+                    def keyList = startValuesMap.keySet().toList()
+                    startValuesMap.each { key, value ->
+                        sh "mkdir -p $OUTPUT_DIR/restoredData/activeData/partition${key}"
+                        //sh 'pipenv run python scripts/restore_data.py --image-path "${imagePath}" --partitions-start ${value} --output-directory $OUTPUT_DIR/restoredData/activeData/partition${key}"'
+                }
+            }
+        }
+        stage('Perform Data Recovery') {
+            steps {
+                echo "Trying to restore active Data partition wise"
+                sh 'pipenv run python scripts/restore_data.py --image-path "${imagePath}" --partitions-id "32" --output-directory $OUTPUT_DIR/restoredData/activeData/partition2/"'
+                echo "Attempt to restore active Data completed."
+                /*sh '''
+                echo "Trying to restore deleted Data"
                 mkdir -p $OUTPUT_DIR/restoredData/deletedData
                 foremost -i "${imagePath}" -o $OUTPUT_DIR/restoredData/deletedData
                 echo "Attempt to restore deleted Data completed."
-                '''
+                '''*/
             }
-        }*/
+        }
     }
 
     /*post {
