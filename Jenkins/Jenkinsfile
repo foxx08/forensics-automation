@@ -19,14 +19,9 @@ pipeline {
                 sh 'pipenv run pytest ./scripts/test_integrity_checker.py -s --test-object "${imagePath}" --initial-hash "${initialHash}"'
             }
         }
-        stage('Perform File System Analysis') {
+        stage('Perform File System Analysis and Reporting') {
             steps {
-                sh 'pipenv run python scripts/image_analyzer.py --image-path "${imagePath}"'
-            }
-        }
-        stage('Report File System Evidence') {
-            steps {
-                sh ''
+                sh 'pipenv run python scripts/image_analyzer.py --image-path "${imagePath}" --output-csv "${OUTPUT_DIR}/fileSystemAnalysis"'
             }
         }
         /*stage('Perform Data Recovery') {
