@@ -21,7 +21,7 @@ pipeline {
         }
         stage('Perform File System Analysis and Reporting') {
             steps {
-                sh 'pipenv run python scripts/image_analyzer.py --image-path "${imagePath}" --output-csv "${OUTPUT_DIR}/fileSystemAnalysis"'
+                sh 'pipenv run python scripts/image_analyzer.py --image-path "${imagePath}" --output-csv "${OUTPUT_DIR}/fileSystemAnalysis/"'
             }
         }
         /*stage('Perform Data Recovery') {
