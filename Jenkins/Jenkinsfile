@@ -24,7 +24,12 @@ pipeline {
                 sh 'pipenv run python scripts/image_analyzer.py --image-path "${imagePath}"'
             }
         }
-        stage('Perform Data Recovery') {
+        stage('Report File System Evidence') {
+            steps {
+                sh ''
+            }
+        }
+        /*stage('Perform Data Recovery') {
             steps {
                 sh '''
                 echo "Trying to Restore deleted Data"
@@ -33,12 +38,12 @@ pipeline {
                 echo "Attempt to restore deleted Data completed."
                 '''
             }
-        }
+        }*/
     }
 
-    post {
+    /*post {
         always {
             archiveArtifacts artifacts: 'forensicAnalysis/**', allowEmptyArchive: true
         }
-    }
+    }*/
 }
