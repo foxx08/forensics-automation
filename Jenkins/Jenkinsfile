@@ -57,7 +57,7 @@ pipeline {
         stage('Perform Data Recovery') {
             steps {
                 echo "Trying to restore active Data partition wise"
-                sh 'pipenv run python scripts/restore_data.py --image-path "${imagePath}" --partitions-start "32" --output-directory $OUTPUT_DIR/restoredData/activeData/partition2/"'
+                sh 'pipenv run python scripts/restore_data.py --image-path "${imagePath}" --partitions-start "32" --output-directory "${OUTPUT_DIR}/restoredData/activeData/partition2/"'
                 echo "Attempt to restore active Data completed."
                 /*sh '''
                 echo "Trying to restore deleted Data"
