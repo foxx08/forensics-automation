@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 pytsk3 = "==20231007"
+filetype ="==1.2.0"
 
 [dev-packages]
 pytest = "~=8.2.0"
