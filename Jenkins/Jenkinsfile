@@ -67,11 +67,21 @@ pipeline {
                 '''*/
             }
         }
+        stage('Verify Image Integrity') {
+            steps {
+                sh 'pipenv run pytest ./scripts/test_integrity_checker.py -s --test-object "${imagePath}" --initial-hash "${initialHash}"'
+            }
+        }
+        stage('Perform File Analysis') {
+            steps {
+                sh 'pipenv run python scripts/file_analyzer.py --folder-path "${OUTPUT_DIR}/restoredData/activeData/" --subfolder-path "partition2/"'
+            }
+        }
     }
 
-    /*post {
+    post {
         always {
             archiveArtifacts artifacts: 'forensicAnalysis/**', allowEmptyArchive: true
         }
-    }*/
+    }
 }
