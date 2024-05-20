@@ -74,7 +74,7 @@ pipeline {
         }
         stage('Perform File Analysis') {
             steps {
-                sh 'pipenv run python scripts/file_analyzer.py --folder-path "${OUTPUT_DIR}/restoredData/activeData/" --subfolder-path "partition2/"'
+                sh 'pipenv run python scripts/file_analyzer.py --folder-path "${OUTPUT_DIR}/restoredData/" --subfolder-path "/activeData/partition2/"'
             }
         }
     }
