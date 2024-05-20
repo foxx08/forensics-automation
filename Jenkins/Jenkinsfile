@@ -27,7 +27,7 @@ pipeline {
                 '''
             }
         }
-        stage('Verify Image Integrity') {
+        stage('Verify Image Integrity before Recovery') {
             steps {
                 sh 'pipenv run pytest ./scripts/test_integrity_checker.py -s --test-object "${imagePath}" --initial-hash "${initialHash}"'
             }
@@ -67,7 +67,7 @@ pipeline {
                 '''*/
             }
         }
-        stage('Verify Image Integrity') {
+        stage('Verify Image Integrity after Recovery') {
             steps {
                 sh 'pipenv run pytest ./scripts/test_integrity_checker.py -s --test-object "${imagePath}" --initial-hash "${initialHash}"'
             }
