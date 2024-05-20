@@ -6,11 +6,11 @@ import filetype
 
 
 def parse_arguments():
-    parser = argparse.ArgumentParser(description="Performs superficial file analysis and stores results to csv files.")
-    parser.add_argument('--folder-path', help='Path to the folder to be analyzed')
-    parser.add_argument('--subfolder-path', help='Path to the subfolder')
+    parser = argparse.ArgumentParser(
+        description="Performs superficial file analysis and generate reports in CSV format.")
+    parser.add_argument('--folder-path', required=True, help='Path to the folder to be analyzed')
+    parser.add_argument('--subfolder-path', required=True, help='Path to the subfolder')
     args = parser.parse_args()
-
     return args.folder_path, args.subfolder_path
 
 
@@ -87,7 +87,6 @@ def identify_file_types(folder_path, subfolder_path):
             csvwriter.writerow([mime_type, "; ".join(files)])
 
     print(f"\nFiletypes of PATH: {subfolder_path} have been written to {folder_path}")
-
 
 
 if __name__ == "__main__":
