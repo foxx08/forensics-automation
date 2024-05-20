@@ -6,7 +6,7 @@ import datetime
 
 
 def parse_arguments():
-    parser = argparse.ArgumentParser(description="Analyze a forensic image and generate reports in CSV format.")
+    parser = argparse.ArgumentParser(description="Analyzes a forensic image and generate reports in CSV format.")
     parser.add_argument("--image-path", required=True, help="Path to the image file")
     parser.add_argument("--output-csv", required=True, help="Path to save the report (CSV file)")
     args = parser.parse_args()

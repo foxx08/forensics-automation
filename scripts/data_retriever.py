@@ -5,7 +5,7 @@ from image_analyzer import list_directories
 
 
 def parse_arguments():
-    parser = argparse.ArgumentParser(description="Restore active data from an image's partition")
+    parser = argparse.ArgumentParser(description="Restores active data from an image's partition")
     parser.add_argument("--image-path", required=True, help="Path to the image file")
     parser.add_argument("--partitions-start", required=True, help="Comma-separated list of partition start sectors")
     parser.add_argument("--output-directory", required=True, help="Directory to save restored data")
