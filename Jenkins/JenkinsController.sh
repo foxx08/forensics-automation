@@ -1,4 +1,5 @@
 #!/bin/bash
+# This script was developed on macOS and may require adjustments for Linux and Windows anyways
 
 JENKINS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 JENKINS_HOME="$JENKINS_DIR/workspace"
