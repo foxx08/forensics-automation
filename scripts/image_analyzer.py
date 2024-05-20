@@ -25,7 +25,7 @@ def list_directories(filesystem_object, directory_path="/"):
     try:
         directory = filesystem_object.open_dir(directory_path)
     except OSError as e:
-        print(f"Error opening directory {directory_path}: {e}")
+        print(f"Unable to open directory {directory_path}: {e}")
         return file_metadata_list
 
     for entry in directory:
@@ -37,7 +37,7 @@ def list_directories(filesystem_object, directory_path="/"):
                 try:
                     file_metadata_list.extend(list_directories(filesystem_object, full_path))
                 except OSError as e:
-                    print(f"Error accessing subdirectory {full_path}: {e}")
+                    print(f"Unable to  access subdirectory {full_path}: {e}")
             else:
                 try:
                     if entry.info.meta:
@@ -53,7 +53,7 @@ def list_directories(filesystem_object, directory_path="/"):
                         }
                         file_metadata_list.append(file_metadata)
                 except Exception as e:
-                    print(f"Error accessing file metadata for {full_path}: {e}")
+                    print(f"Unable to access file metadata for {full_path}: {e}")
     return file_metadata_list
 
 
@@ -71,7 +71,7 @@ def get_partition_info(imagehandle):
             }
             partition_info_list.append(partition_info)
         except Exception as e:
-            print(f"Error processing partition: {e}")
+            print(f"Unable to process partition: {e}")
     return partition_info_list
 
 
@@ -114,5 +114,5 @@ if __name__ == "__main__":
             file_metadata = list_directories(pytsk3.FS_Info(imagehandle, offset=partition_info[i]['Start'] * 512))
             save_file_metadata_to_csv(partition_info[i]['Partition'], file_metadata, output_csv)
         except OSError as e:
-            print(f"Cannot access partition {partition_info[i]['Partition']}")
+            print(f"Unable to access partition {partition_info[i]['Partition']}")
             continue

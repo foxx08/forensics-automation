@@ -25,7 +25,7 @@ def save_files(filesystem_object, file_metadata, output_directory):
                 f.write(file_data)
             print(f"File saved to: {output_path}")
         except Exception as e:
-            print(f"Error opening or reading file {file_path}: {e}")
+            print(f"Unable to open or read file {file_path}: {e}")
 
 
 def process_partition(imagehandle, partition_start, output_directory):
@@ -34,7 +34,7 @@ def process_partition(imagehandle, partition_start, output_directory):
         file_metadata = list_directories(filesystem_object)
         save_files(filesystem_object, file_metadata, output_directory)
     except Exception as e:
-        print(f"Error processing NTFS partition starting at sector {partition_start}: {e}")
+        print(f"Unable to process partition starting at sector {partition_start}: {e}")
 
 
 if __name__ == "__main__":
