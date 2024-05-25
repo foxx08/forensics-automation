@@ -60,16 +60,16 @@ pipeline {
                 }
             }
         }
-        /*stage('Perform deleted Data Recovery') {
+        stage('Perform deleted Data Recovery') {
             steps {
-                sh '''
-                echo "Trying to restore deleted Data"
-                mkdir -p $OUTPUT_DIR/restoredData/deletedData
-                foremost -i "${imagePath}" -o $OUTPUT_DIR/restoredData/deletedData
-                echo "Attempt to restore deleted Data completed."
-                '''
+                catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE') {
+                    sh '''
+                    mkdir -p $OUTPUT_DIR/restoredData/deletedData
+                    foremost -i "${imagePath}" -o $OUTPUT_DIR/restoredData/deletedData
+                    '''
+                }
            }
-        }*/
+        }
         stage('Verify Image Integrity after Recovery') {
             steps {
                 sh 'pipenv run pytest ./scripts/test_integrity_checker.py -s --test-object "${imagePath}" --initial-hash "${initialHash}"'
