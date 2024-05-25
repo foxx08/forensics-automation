@@ -9,6 +9,7 @@ pipeline {
         stage('Create Python Virtual Environment') {
             steps {
                 sh '''
+                rm -rf ${OUTPUT_DIR}
                 pip install pipenv
                 pipenv install
                 '''
@@ -35,7 +36,7 @@ pipeline {
         stage('Perform active Data Recovery') {
             steps {
                 script {
-                    def csvFile = readFile("${OUTPUT_DIR}/fileSystemAnalysis/partitionInfo.csv")
+                    def csvFile = readFile("${OUTPUT_DIR}/fileSystemAnalysis/partition_info.csv")
                     def rows = csvFile.readLines()
                     def dataRows = rows[1..-1]
                     def startValuesMap = [:]
@@ -61,19 +62,14 @@ pipeline {
         }
         /*stage('Perform deleted Data Recovery') {
             steps {
-                echo "Trying to restore active Data partition wise"
-                catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
-                    sh 'pipenv run python scripts/data_retriever.py --image-path "${imagePath}" --partitions-start "32" --output-directory "${OUTPUT_DIR}/restoredData/activeData/partition2/"'
-                }
-                echo "Attempt to restore active Data completed."
-                /*sh '''
+                sh '''
                 echo "Trying to restore deleted Data"
                 mkdir -p $OUTPUT_DIR/restoredData/deletedData
                 foremost -i "${imagePath}" -o $OUTPUT_DIR/restoredData/deletedData
                 echo "Attempt to restore deleted Data completed."
-                '''*/
-          // }
-        //}
+                '''
+           }
+        }*/
         stage('Verify Image Integrity after Recovery') {
             steps {
                 sh 'pipenv run pytest ./scripts/test_integrity_checker.py -s --test-object "${imagePath}" --initial-hash "${initialHash}"'
