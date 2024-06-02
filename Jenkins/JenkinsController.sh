@@ -34,7 +34,7 @@ fi
 
 java -jar "$JENKINS_DIR/jenkins-cli.jar" -s "http://localhost:$JENKINS_PORT" -auth "admin:$adminPw" who-am-i
 
-if [ -f "$JENKINS_DIR/plugins.txt" ]; then
+if [ -f "$JENKINS_DIR/jenkins-cli.jar" ]; then
   PLUGINS=(
     "configuration-as-code:1807.v0175eda_00a_20"
     "pipeline-stage-view:2.34"
