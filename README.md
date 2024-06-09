@@ -28,7 +28,7 @@ pipenv run pytest ./scripts/test_integrity_checker.py -s --test-object "<path/to
 ````
 #### further information
 ````
- pipenv run python scripts/image_analyzer.py --help"
+ pipenv run python scripts/image_analyzer.py --help
 ````
 ### data recovery 
 #### active data
@@ -37,11 +37,11 @@ pipenv run pytest ./scripts/test_integrity_checker.py -s --test-object "<path/to
 ````
 #### further information
 ````
- pipenv run python scripts/data_retriever.py --help"
+ pipenv run python scripts/data_retriever.py --help
 ````
 #### deleted data
 ````
-foremost -i "<path/to/image>" -o ""<path/to/directory>"
+foremost -i "<path/to/image>" -o "<path/to/directory>"
 ````
 
 ### file analysis
@@ -50,5 +50,5 @@ pipenv run python scripts/file_analyzer.py --folder-path "<path/to/directory>" -
 ````
 #### further information
 ````
- pipenv run python scripts/file_analyzer.py --help"
+ pipenv run python scripts/file_analyzer.py --help
 ````
